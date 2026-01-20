@@ -13,7 +13,7 @@ connectDB();
 
 //middleware 
 app.use(cors({
-   origin: "https://car-rentel-psi.vercel.app/",
+   origin: "car-rentel-urv6.vercel.app",
    credentials: true
 }));
 app.use(express.json());
