@@ -1,33 +1,28 @@
 import express from 'express'
 import 'dotenv/config';
 import cors from 'cors';
-import { connect } from 'mongoose';
 import connectDB from './configs/db.js';
 import userRouter from './routes/userRoutes.js';
 import ownerRouter from './routes/ownerRoutes.js';
 import bookingRouter from './routes/bookingRoutes.js';
 
-//Initialize Express App
-
 const app = express()
 
-// Connect Database
-await connectDB()
+// Try to connect to database
+connectDB();
 
 //middleware 
 app.use(cors({
-   origin: [
-    'http://localhost:5173',        // dev frontend
-    'https://drivezy-car-rental.netlify.app'  // agar kabhi deploy karo
-  ],
+   origin: "http://localhost:5173",
+   credentials: true
 }));
 app.use(express.json());
 
-app.get('/',(req,res)=> res.send("Server is runing"))
+app.get('/',(req,res)=> res.send("Server is running"))
 app.use('/api/user',userRouter)
 app.use('/api/owner',ownerRouter)
 app.use('/api/booking',bookingRouter)
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT,()=> console.log(`Server Runing on port ${PORT}`))
+app.listen(PORT,()=> console.log(`Server Running on port ${PORT}`))
